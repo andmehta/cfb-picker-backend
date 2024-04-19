@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "cfb-picker-backend"
+version = "0.1.0"
+description = "django backend for attempting to predict the entire SEC football schedule"
+authors = ["andrewmehta <andmehta@icloud.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+Django = "^5.0.4"
+djangorestframework = "^3.15.1"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.4.0"
+# add test-containers to boot up postgres database for testing
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
