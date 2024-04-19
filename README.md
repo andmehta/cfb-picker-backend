@@ -3,7 +3,7 @@ Django Backend for attempting to pick the entire SEC football schedule before th
 
 
 # TODO
-- setup docker and docker compose
+~~- setup docker and docker compose~~
 - setup postgres instead of sqlite
 - setup unit tests with [testcontainers](https://testcontainers.com)
 - setup database fixture for Teams
