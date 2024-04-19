@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -72,11 +72,22 @@ WSGI_APPLICATION = "cfbpicker.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+DB_USER = os.getenv("DB_USER")
+DB_PASS_FILE = os.getenv("DB_PASS_FILE")
+DB_HOST = os.getenv("DB_HOST")
+DB_PORT = os.getenv("DB_PORT")
+if DB_USER is None or DB_PASS_FILE is None or DB_HOST is None or DB_PORT is None:
+    raise EnvironmentError("Database information was not properly supplied")
+with open(DB_PASS_FILE) as pass_file:
+    password = pass_file.read()
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'cfbpicker',
+        'USER': DB_USER,
+        'PASSWORD': password,
+        'HOST': DB_HOST,  # Service name of the PostgreSQL container in Docker Compose
+        'PORT': DB_PORT,
     }
 }
 
