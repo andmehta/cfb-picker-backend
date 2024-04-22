@@ -15,12 +15,9 @@ services:
       DB_PORT: 5432
     develop:
       watch:
-        - action: rebuild
+        - action: sync
           path: .
           target: /app
-          ignore:
-            - db.sqlite3
-            - README.md
   postgres:
    image: postgres
    restart: always
