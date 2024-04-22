@@ -30,6 +30,9 @@ RUN adduser \
     --uid "${UID}" \
     appuser
 
+# Create a directory and set its permissions to allow writing by the appuser
+RUN mkdir app/output && chmod 777 app/output
+
 # first install poetry in the docker container
 RUN pip3 install poetry
 

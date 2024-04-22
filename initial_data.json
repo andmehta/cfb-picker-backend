@@ -1,0 +1,210 @@
+[
+  {
+    "model": "teams.team",
+    "pk": 1,
+    "fields": {
+      "name": "University of Alabama",
+      "nickname": "Bama",
+      "abbreviation": "UA",
+      "mascot": "Crimson Tide",
+      "conference": "SEC",
+      "primary_color": "#9E1B32",
+      "secondary_color": "#FFFFFF"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 4,
+    "fields": {
+      "name": "University of Florida",
+      "nickname": "Florida",
+      "abbreviation": "UF",
+      "mascot": "Gators",
+      "conference": "SEC",
+      "primary_color": "#FA4616",
+      "secondary_color": "#0021A5"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 5,
+    "fields": {
+      "name": "Louisiana State University",
+      "nickname": "LSU",
+      "abbreviation": "LSU",
+      "mascot": "Tigers",
+      "conference": "SEC",
+      "primary_color": "#461D7C",
+      "secondary_color": "#FDD023"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 6,
+    "fields": {
+      "name": "University of Missouri",
+      "nickname": "Missouri",
+      "abbreviation": "UM",
+      "mascot": "Tigers",
+      "conference": "SEC",
+      "primary_color": "#000000",
+      "secondary_color": "#F1B82D"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 7,
+    "fields": {
+      "name": "University of South Carolina",
+      "nickname": "South Carolina",
+      "abbreviation": "USC",
+      "mascot": "Gamecocks",
+      "conference": "SEC",
+      "primary_color": "#73000a",
+      "secondary_color": "#000000"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 8,
+    "fields": {
+      "name": "Texas A&M University",
+      "nickname": "Texas A&M",
+      "abbreviation": "TAMU",
+      "mascot": "Aggies",
+      "conference": "SEC",
+      "primary_color": "#500000",
+      "secondary_color": "#FFFFFF"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 9,
+    "fields": {
+      "name": "University of Georgia",
+      "nickname": "Georgia",
+      "abbreviation": "UGA",
+      "mascot": "Bulldogs",
+      "conference": "SEC",
+      "primary_color": "#000000",
+      "secondary_color": "#BA0C2F"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 10,
+    "fields": {
+      "name": "University of Kentucky",
+      "nickname": "Kentucky",
+      "abbreviation": "UK",
+      "mascot": "Wildcats",
+      "conference": "SEC",
+      "primary_color": "#0033A0",
+      "secondary_color": "#FFFFFF"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 11,
+    "fields": {
+      "name": "University of Tennessee",
+      "nickname": "Tennessee",
+      "abbreviation": "UT",
+      "mascot": "Volunteers",
+      "conference": "SEC",
+      "primary_color": "#FF8200",
+      "secondary_color": "#FFFFFF"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 12,
+    "fields": {
+      "name": "Vanderbilt University",
+      "nickname": "Vandy",
+      "abbreviation": "VU",
+      "mascot": "Commodores",
+      "conference": "SEC",
+      "primary_color": "#000000",
+      "secondary_color": "#CFAE70"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 13,
+    "fields": {
+      "name": "University of Mississippi",
+      "nickname": "Ole Miss",
+      "abbreviation": "UM",
+      "mascot": "Rebels",
+      "conference": "SEC",
+      "primary_color": "#CE1126",
+      "secondary_color": "#14213D"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 14,
+    "fields": {
+      "name": "Mississippi State University",
+      "nickname": "Mississippi State",
+      "abbreviation": "MSU",
+      "mascot": "Bulldogs",
+      "conference": "SEC",
+      "primary_color": "#660000",
+      "secondary_color": "#FFFFFF"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 15,
+    "fields": {
+      "name": "University of Texas",
+      "nickname": "Texas",
+      "abbreviation": "UT",
+      "mascot": "Longhorns",
+      "conference": "SEC",
+      "primary_color": "#BF5700",
+      "secondary_color": "#FFFFFF"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 16,
+    "fields": {
+      "name": "University of Oklahoma",
+      "nickname": "Oklahoma",
+      "abbreviation": "OU",
+      "mascot": "Sooners",
+      "conference": "SEC",
+      "primary_color": "#841617",
+      "secondary_color": "#FDF9D8"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 2,
+    "fields": {
+      "name": "University of Arkansas",
+      "nickname": "Arkansas",
+      "abbreviation": "UA",
+      "mascot": "Razorbacks",
+      "conference": "SEC",
+      "primary_color": "#9D2235",
+      "secondary_color": "#FFFFFF"
+    }
+  },
+  {
+    "model": "teams.team",
+    "pk": 3,
+    "fields": {
+      "name": "Auburn University",
+      "nickname": "Auburn",
+      "abbreviation": "AU",
+      "mascot": "Tigers",
+      "conference": "SEC",
+      "primary_color": "#0B2341",
+      "secondary_color": "#E86100"
+    }
+  }
+]
