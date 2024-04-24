@@ -21,6 +21,6 @@ class Command(BaseCommand):
         self.stdout.write("writing data to file")
 
         # Write the serialized data to a fixture file
-        with open('./output/initial_data.json', 'w') as f:
+        with open('./output/initial_teams_data.json', 'w') as f:
             json.dump(data, f, indent=2)
         self.stdout.write("Finished creating fixture")
