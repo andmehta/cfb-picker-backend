@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="local db" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
+    <deployment type="docker-compose.yml">
+      <settings>
+        <option name="composeProjectName" value="local-db" />
+        <option name="envFilePath" value="" />
+        <option name="sourceFilePath" value="local_postgres.yml" />
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+</component>
