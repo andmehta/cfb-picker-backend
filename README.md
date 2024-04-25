@@ -6,5 +6,6 @@ Django Backend for attempting to pick the entire SEC football schedule before th
 - ~~setup docker and docker compose~~
 - ~~setup postgres instead of sqlite~~
 - ~~setup secret key and database with [docker secrets](https://docs.docker.com/engine/swarm/secrets/)~~
-- setup database fixture for Teams
-- setup unit tests with [testcontainers](https://testcontainers.com)
+- ~~setup database fixture for Teams~~
+- Setup ability to run unit tests individually using the UI in Pycharm
+- setup unit tests with [testcontainers](https://testcontainers.com) for CI/CD testing
