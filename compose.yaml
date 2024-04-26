@@ -3,6 +3,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    restart: on-failure
     build: .
     secrets:
       - db-password
@@ -13,6 +14,7 @@ services:
       DB_PASS_FILE: /run/secrets/db-password
       DB_HOST: postgres
       DB_PORT: 5432
+    entrypoint: /app/entrypoint.sh
     develop:
       watch:
         - action: sync
