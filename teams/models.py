@@ -28,4 +28,15 @@ class Team(models.Model):
     primary_color = HexColorField()
     secondary_color = HexColorField()
 
+    def __str__(self):
+        return self.nickname
+
+    @property
+    def games(self):
+        """Combine away and home games"""
+        # local import to avoid circular dependencies
+        from games.models import Game
+        from django.db.models import Q
+        return Game.objects.filter(Q(home_team=self) | Q(away_team=self)).all()
+
 

@@ -7,6 +7,7 @@ from django.urls import path, include
 
 api_patterns = [
     path("teams/", include("teams.urls")),
+    path("games/", include("games.urls")),
 ]
 
 urlpatterns = [
