@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teams List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        
+        h1 {
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        ul ul {
+            margin-left: 20px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<h1>Teams List</h1>
+<h3>Welcome {{ user.username }}</h3>
+<ul>
+    {% for team in teams %}
+    <li>{{ team.name }}</li>
+    <ul>
+        {% for game in team.games %}
+        {% if team == game.home_team %}
+        <li><a href="{% url 'game_detail' game.id %}"> VS {{ game.away_team }} on {{ game.kickoff|date:"M/d" }}</a></li>
+        {% endif %}
+        {% if team == game.away_team %}
+        <li><a href="{% url 'game_detail' game.id %}"> At {{ game.home_team }} on {{ game.kickoff|date:"M/d" }}</a></li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+    {% endfor %}
+</ul>
+</body>
+</html>
