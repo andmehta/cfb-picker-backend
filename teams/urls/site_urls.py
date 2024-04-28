@@ -1,6 +1,6 @@
 from django.urls import path
-from teams.views import teams_list
+from teams.views import TeamsListView
 
 urlpatterns = [
-    path("", teams_list, name='teams_list'),
+    path("", TeamsListView.as_view(), name='teams_list'),
 ]

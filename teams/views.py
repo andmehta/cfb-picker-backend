@@ -1,8 +1,8 @@
-from rest_framework import viewsets
+from django.views.generic import ListView
+from rest_framework import viewsets, permissions
+
 from teams.models import Team
-from games.models import Game
 from teams.serializers import TeamSerializer
-from django.shortcuts import render
 
 
 class TeamsView(viewsets.ReadOnlyModelViewSet):
@@ -10,9 +10,14 @@ class TeamsView(viewsets.ReadOnlyModelViewSet):
     POST is defined as NOT ALLOWED since it's the ReadOnlyModelViewSet"""
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
-def teams_list(request):
-    teams = Team.objects.all().prefetch_related("home_games", "away_games")
+class TeamsListView(ListView):
+    model = Team
+    template_name = 'teams_list.html'
+    context_object_name = 'teams'
 
-    return render(request, 'teams_list.html', {'teams': teams})
+    def get_queryset(self):
+        return super().get_queryset().prefetch_related("home_games", "away_games")
+
