@@ -5,12 +5,18 @@
 </head>
 <body>
     <h1>Teams List</h1>
+    <h3>Welcome {{ user.username }}</h3>
     <ul>
         {% for team in teams %}
         <li>{{ team.name }}</li>
             <ul>
                 {% for game in team.games %}
-                    <li><a href="{% url 'game_detail' game.id %}">{{ game }}</a></li>
+                    {% if team == game.home_team %}
+                        <li><a href="{% url 'game_detail' game.id %}"> VS {{ game.away_team }} on {{ game.kickoff|date:"M/d" }}</a></li>
+                    {% endif %}
+                    {% if team == game.away_team %}
+                        <li><a href="{% url 'game_detail' game.id %}"> At {{ game.home_team }} on {{ game.kickoff|date:"M/d" }}</a></li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         {% endfor %}
