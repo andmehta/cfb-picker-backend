@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ game }}</title>
+</head>
+<body>
+    <h1>{{ game.home_team }} VS {{ game.away_team }}</h1>
+    <table border="1">
+        <tbody>
+        <tr>
+            <td>Home Team</td>
+            <td>{{ game.home_team }}</td>
+        </tr>
+        <tr>
+            <td>Away Team</td>
+            <td>{{ game.away_team }}</td>
+        </tr>
+        <tr>
+            <td>Location</td>
+            <td>{{ game.location }}</td>
+        </tr>
+        <tr>
+            <td>Kickoff</td>
+            <td>{{ game.kickoff_string }}</td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

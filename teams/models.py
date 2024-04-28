@@ -37,6 +37,4 @@ class Team(models.Model):
         # local import to avoid circular dependencies
         from games.models import Game
         from django.db.models import Q
-        return Game.objects.filter(Q(home_team=self) | Q(away_team=self)).all()
-
-
+        return Game.objects.filter(Q(home_team=self) | Q(away_team=self)).all().order_by("kickoff")

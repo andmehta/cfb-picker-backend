@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teams List</title>
+</head>
+<body>
+    <h1>Teams List</h1>
+    <ul>
+        {% for team in teams %}
+        <li>{{ team.name }}</li>
+            <ul>
+                {% for game in team.games %}
+                    <li><a href="{% url 'game_detail' game.id %}">{{ game }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+</body>
+</html>
