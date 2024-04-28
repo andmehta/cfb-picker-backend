@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.test import TestCase
 
@@ -7,6 +8,8 @@ class TestTeamsViewTestCase(TestCase):
     def setUp(self):
         """First set up Teams data in the database with a fixture"""
         call_command("loaddata", "initial_teams_data")
+        self.user = User.objects.create_user(username="testuser", password="12345")
+        self.client.force_login(self.user)
 
     def test_list_view_with_objects__list_returned(self):
         """first add objects to the DB, then get the endpoint and see a list"""
