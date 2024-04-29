@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from rest_framework import viewsets, permissions
 
@@ -13,7 +14,7 @@ class TeamsView(viewsets.ReadOnlyModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
-class TeamsListView(ListView):
+class TeamsListView(LoginRequiredMixin, ListView):
     model = Team
     template_name = 'teams_list.html'
     context_object_name = 'teams'
