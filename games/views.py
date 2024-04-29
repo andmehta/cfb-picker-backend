@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from rest_framework import viewsets, permissions
@@ -17,6 +19,7 @@ class GamesView(viewsets.ReadOnlyModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
+@login_required
 def game_detail(request, pk):
     game = Game.objects.get(pk=pk)
     previous_form = None

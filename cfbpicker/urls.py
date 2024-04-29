@@ -14,5 +14,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("teams/", include("teams.urls.site_urls")),
     path("games/", include("games.urls.site_urls")),
-    path("api/v1/", include(api_patterns))
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("accounts/", include("accounts.urls")),
+    path("api/v1/", include(api_patterns)),
 ]
