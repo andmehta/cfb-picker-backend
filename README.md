@@ -10,7 +10,7 @@ Django Backend for attempting to pick the entire SEC football schedule before th
 ```shell
 docker compose up 
 ```
-5. access the site at https://localhost:8000/teams/
+5. access the site at https://localhost:8000/
 
 ## Set up a Development environment
 1. Do steps 1-3 for How to Run
@@ -20,6 +20,7 @@ docker compose up
 
 ### TODO
 - [x] Sign-in
+- [ ] clean up of UI (use bootstrap and base html)
 - [ ] CI/CD unit tests (probably just github actions? use [testcontainers](https://testcontainers.com/)?)
 - [ ] Auto-deployment
 - [ ] Game Results saved and shown in Games Screen
