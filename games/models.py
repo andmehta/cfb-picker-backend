@@ -51,3 +51,6 @@ class GamePrediction(models.Model):
 
     class Meta:
         unique_together = ("user", "game")
+
+    def __str__(self):
+        return f"{self.winner} over {self.loser} {self.winning_score}-{self.losing_score}"

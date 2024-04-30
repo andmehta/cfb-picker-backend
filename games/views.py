@@ -1,4 +1,4 @@
-from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -20,7 +20,7 @@ class GamesView(viewsets.ReadOnlyModelViewSet):
 
 
 @login_required
-def game_detail(request, pk):
+def game_detail(request, pk=1):
     game = Game.objects.get(pk=pk)
     previous_form = None
     if request.method == 'POST':
@@ -28,7 +28,8 @@ def game_detail(request, pk):
         if previous_form.is_valid():
             previous_form.instance.game_id = pk
             previous_form.instance.user_id = request.user.pk
-            previous_form.save()
+            prediction = previous_form.save()
+            messages.success(request, f"Successfully saved {prediction}")
             return redirect(reverse("teams_list"))
     try:
         game_prediction = GamePrediction.objects.get(game=game, user=request.user)
