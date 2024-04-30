@@ -1,7 +1,7 @@
 # cfb-picker-backend
 Django Backend for attempting to pick the entire SEC football schedule before the season
 
-![Unit Tests](https://github.com/andmehta/cfb-picker-backend/workflows/django.yml/badge.svg)
+![Unit Tests](https://github.com/andmehta/cfb-picker-backend/actions/workflows/django.yml/badge.svg)
 
 ## How to Run
 1. [Clone this repo](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
