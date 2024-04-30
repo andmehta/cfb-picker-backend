@@ -76,24 +76,28 @@ WSGI_APPLICATION = "cfbpicker.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-DB_USER = os.getenv("DB_USER")
-DB_PASS_FILE = os.getenv("DB_PASS_FILE")
-DB_HOST = os.getenv("DB_HOST")
-DB_PORT = os.getenv("DB_PORT")
-if DB_USER is None or DB_PASS_FILE is None or DB_HOST is None or DB_PORT is None:
-    raise EnvironmentError("Database information was not properly supplied")
-with open(DB_PASS_FILE) as pass_file:
-    password = pass_file.read()
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'cfbpicker',
-        'USER': DB_USER,
-        'PASSWORD': password,
-        'HOST': DB_HOST,  # Service name of the PostgreSQL container in Docker Compose
-        'PORT': DB_PORT,
+if os.getenv("IS_CI", False) in (True, "true", "True", 1, "1"):
+    DATABASES = {}
+else:
+    # These defaults are for the local test environment. Production is expected to override most of these
+    DB_USER = os.getenv("DB_USER", "postgres")
+    DB_PASS_FILE = os.getenv("DB_PASS_FILE", "db/password.txt")
+    DB_HOST = os.getenv("DB_HOST", "localhost")
+    DB_PORT = os.getenv("DB_PORT", 5432)
+    if DB_USER is None or DB_PASS_FILE is None or DB_HOST is None or DB_PORT is None:
+        raise EnvironmentError("Database information was not properly supplied")
+    with open(DB_PASS_FILE) as pass_file:
+        password = pass_file.read()
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'cfbpicker',
+            'USER': DB_USER,
+            'PASSWORD': password,
+            'HOST': DB_HOST,  # Service name of the PostgreSQL container in Docker Compose
+            'PORT': DB_PORT,
+        }
     }
-}
 
 
 # Password validation

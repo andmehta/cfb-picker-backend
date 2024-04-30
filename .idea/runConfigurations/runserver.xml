@@ -8,10 +8,6 @@
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="PARENT_ENVS" value="true" />
     <envs>
-      <env name="DB_HOST" value="localhost" />
-      <env name="DB_PASS_FILE" value="db/password.txt" />
-      <env name="DB_PORT" value="5432" />
-      <env name="DB_USER" value="postgres" />
       <env name="PYTHONUNBUFFERED" value="1" />
     </envs>
     <option name="SDK_HOME" value="" />
