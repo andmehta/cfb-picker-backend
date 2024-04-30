@@ -7,10 +7,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
-    # These will PROBABLY do nothing once I setup the tests to run with testcontainers
     env:
       IS_CI: true
     strategy:
