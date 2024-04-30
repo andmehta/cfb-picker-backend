@@ -35,4 +35,4 @@ jobs:
         coverage run manage.py test
     - name: View Coverage stats
       run: |
-        coverage report --fail-under 80
+        coverage report --fail-under 94
