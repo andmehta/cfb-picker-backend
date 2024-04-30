@@ -1,0 +1,8 @@
+{% block game_detail %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ form.non_field_errors }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}

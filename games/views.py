@@ -43,11 +43,8 @@ def game_detail(request, pk=1):
             "winning_score": game_prediction.winning_score,
             "losing_score": game_prediction.losing_score,
         }
-        # weird case that a new prediction supersedes a recent failed form.
-        # This will just render the disabled form, which I'd prefer
+        # disabled is handled using bootstrap and an '% if %' in the template
         form = PredictionForm(initial=initial_data)
-        for field, value in form.fields.items():
-            value.disabled = True
     else:
         form = previous_form or PredictionForm()
         filtered = Team.objects.filter(pk__in=(game.home_team.id, game.away_team.id))
