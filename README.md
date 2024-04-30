@@ -21,7 +21,7 @@ docker compose up
 ### TODO
 - [x] Sign-in
 - [x] clean up of UI (use bootstrap and base html)
-- [ ] CI/CD unit tests (probably just github actions? use [testcontainers](https://testcontainers.com/)?)
+- [x] CI/CD unit tests
 - [ ] Auto-deployment
 - [ ] Game Results saved and shown in Games Screen
 - [ ] API and JWT token

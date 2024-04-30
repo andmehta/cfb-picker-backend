@@ -1,0 +1,20 @@
+[run]
+omit =
+    */tests/*
+    */migrations/*
+    */urls.py
+    */settings.py
+    */wsgi.py
+    */asgi.py
+    */admin.py
+    */apps.py
+    */fixtures/*
+    */management/*
+    **/__init__.py
+    *management/commands/*
+    manage.py
+
+[report]
+exclude_lines =
+    def __str__(self):\n.*
+    def __* # ignore dunder methods
