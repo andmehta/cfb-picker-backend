@@ -33,3 +33,7 @@
 LICENSE
 README.md
 **/db/*
+**/htmlcov/*
+.coverage
+.coveragerc
+local_postgres.yml

@@ -17,6 +17,7 @@ psycopg-binary = "^3.1.18"
 black = "^24.4.0"
 # add test-containers to boot up postgres database for testing in CI/CD
 testcontainers = {version = "^4.4.0", extras = ["postgres"]}
+coverage = "^7.5.0"
 
 [build-system]
 requires = ["poetry-core"]
