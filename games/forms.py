@@ -14,14 +14,17 @@ class PredictionForm(ModelForm):
         cleaned_data = super().clean()
         winner = cleaned_data.get('winner')
         loser = cleaned_data.get('loser')
-
-        if winner == loser:
-            raise ValidationError("Winner and loser must be different teams.")
-
         winning_score = cleaned_data.get("winning_score")
         losing_score = cleaned_data.get("losing_score")
+        errors = []
+
+        if winner == loser:
+            errors.append("Winner and loser must be different teams.")
 
         if winning_score <= losing_score:
-            raise ValidationError("You cannot lose a game with a higher score than your opponent.")
+            errors.append("Winning score must be higher than the losing score")
+
+        if errors:
+            raise ValidationError(errors)
 
         return cleaned_data
