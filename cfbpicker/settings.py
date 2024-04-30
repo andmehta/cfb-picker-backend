@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = "django-insecure-&6(t3hb1q&9#b8fu-t*xtgsa$q30+*#)-xhi-rs$d8ft7!o50r
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -73,11 +71,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "cfbpicker.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 if os.getenv("IS_CI", False) in (True, "true", "True", 1, "1"):
-    DATABASES = {}
+    # import locally as it's not guaranteed to be part of the dependencies
+    from testcontainers.postgres import PostgresContainer
+
+    postgres_container = PostgresContainer()
+    postgres_container.start()
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': postgres_container.dbname,
+            'USER': postgres_container.username,
+            'PASSWORD': postgres_container.password,
+            'HOST': postgres_container.get_container_host_ip(),
+            'PORT': postgres_container.get_exposed_port(postgres_container.port),
+        }
+    }
 else:
     # These defaults are for the local test environment. Production is expected to override most of these
     DB_USER = os.getenv("DB_USER", "postgres")
@@ -99,7 +111,6 @@ else:
         }
     }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -118,7 +129,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -129,7 +139,6 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
