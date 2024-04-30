@@ -30,6 +30,12 @@ jobs:
         pip install poetry
         poetry config virtualenvs.create false
         poetry install
-    - name: Run Tests (expect this to fail without a DB)
+    - name: Install coverage in CI
       run: |
-        python manage.py test
+        poetry add coverage
+    - name: Run Tests with coverage (uses testcontainers)
+      run: |
+        coverage run manage.py test
+    - name: View Coverage stats
+      run: |
+        coverage report --fail-under 80
