@@ -1,0 +1,59 @@
+{% block game_detail %}
+<form method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col">
+            <label for="winner"><strong>Winner</strong></label>
+            <select name="winner" id="winner" class="form-select" aria-label="Disabled select example">
+                {% for value, label in form.fields.winner.choices %}
+                <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+            {% if form.errors.winner %}
+            {% for message in form.errors.winner %}
+            <div class="alert alert-warning" role="alert">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="col">
+            <label for="loser"><strong>Loser</strong></label>
+            <select name="loser" id="loser" class="form-select" aria-label="Disabled select example">
+                {% for value, label in form.fields.loser.choices %}
+                <option value="{{ value }}">{{ label }}</option>
+                {% endfor %}
+            </select>
+            {% if form.errors.loser %}
+            {% for message in form.errors.loser %}
+            <div class="alert alert-warning" role="alert">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="winning_score"><strong>Winning Score</strong></label>
+            <input name="winning_score" type="number" id="winning_score" class="form-control" min="1" max="99">
+            {% if form.errors.winning_score %}
+            {% for message in form.errors.winning_score %}
+            <div class="alert alert-warning" role="alert">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="col">
+            <label for="losing_score"><strong>Losing Score</strong></label>
+            <input name="losing_score" type="number" id="losing_score" class="form-control" min="0" max="98">
+            {% if form.errors.losing_score %}
+            {% for message in form.errors.losing_score %}
+            <div class="alert alert-warning" role="alert">{{ message }}</div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    {% if form.non_field_errors %}
+    {% for message in form.non_field_errors %}
+    <div class="alert alert-warning" role="alert">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

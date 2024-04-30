@@ -1,0 +1,31 @@
+{% block game_detail %}
+    <form method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col">
+            <label for="winner"><strong>Winner</strong></label>
+            <select id="winner" class="form-select" aria-label="Disabled winner choice" disabled>
+                <option >{{ form.initial.winner }}</option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="loser"><strong>Loser</strong></label>
+            <select id="loser" class="form-select" aria-label="disabled loser" disabled>
+                <option >{{ form.initial.loser }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label for="winning_score"><strong>Winning Score</strong></label>
+            <input type="number" id="winning_score" class="form-control" value="{{ form.initial.winning_score }}" disabled>
+        </div>
+        <div class="col">
+            <label for="losing_score"><strong>Losing Score</strong></label>
+            <input type="number" id="losing_score" class="form-control" value="{{ form.initial.losing_score }}" disabled>
+        </div>
+    </div>
+    {{ form.non_field_errors }}
+    <button type="submit" class="btn btn-primary" disabled>Submit</button>
+</form>
+{% endblock %}

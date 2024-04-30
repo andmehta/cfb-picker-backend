@@ -1,4 +1,4 @@
-from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -20,7 +20,7 @@ class GamesView(viewsets.ReadOnlyModelViewSet):
 
 
 @login_required
-def game_detail(request, pk):
+def game_detail(request, pk=1):
     game = Game.objects.get(pk=pk)
     previous_form = None
     if request.method == 'POST':
@@ -28,7 +28,8 @@ def game_detail(request, pk):
         if previous_form.is_valid():
             previous_form.instance.game_id = pk
             previous_form.instance.user_id = request.user.pk
-            previous_form.save()
+            prediction = previous_form.save()
+            messages.success(request, f"Successfully saved {prediction}")
             return redirect(reverse("teams_list"))
     try:
         game_prediction = GamePrediction.objects.get(game=game, user=request.user)
@@ -42,11 +43,8 @@ def game_detail(request, pk):
             "winning_score": game_prediction.winning_score,
             "losing_score": game_prediction.losing_score,
         }
-        # weird case that a new prediction supersedes a recent failed form.
-        # This will just render the disabled form, which I'd prefer
+        # disabled is handled using bootstrap and an '% if %' in the template
         form = PredictionForm(initial=initial_data)
-        for field, value in form.fields.items():
-            value.disabled = True
     else:
         form = previous_form or PredictionForm()
         filtered = Team.objects.filter(pk__in=(game.home_team.id, game.away_team.id))

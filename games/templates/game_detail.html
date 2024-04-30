@@ -1,75 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ game }}</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f0f0f0;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        table {
-            width: 100%;
-            max-width: 600px;
-            margin: 20px auto;
-            border-collapse: collapse;
-        }
-
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        form {
-            max-width: 400px;
-            margin: 20px auto;
-        }
-
-        button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        a {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <h1>{{ game.home_team }} VS {{ game.away_team }}</h1>
-    <table border="1">
+{% extends 'base.html' %}
+{% block content %}
+<h3 style="center">{{ game.home_team }} VS {{ game.away_team }}</h3>
+    <table border="1" class="table table-striped">
         <tbody>
         <tr>
             <td>Home Team</td>
@@ -89,12 +21,10 @@
         </tr>
         </tbody>
     </table>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        {{ form.non_field_errors }}
-        <button type="submit">Submit</button>
-    </form>
-    <a href="{% url 'teams_list' %}">Back</a>
-</body>
-</html>
+        {% if form.initial %}
+        {% include 'prediction_disabled.html' %}
+        {% else %}
+        {% include 'prediction_form.html' %}
+
+        {% endif %}
+{% endblock %}
