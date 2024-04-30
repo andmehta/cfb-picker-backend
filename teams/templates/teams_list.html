@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3>Welcome {{ user.username }}</h3>
 <ul class="list-group list-group-flush">
     {% for team in teams %}
-    <li class="list-group-item">{{ team.name }}</li>
+    <li class="list-group-item"><strong>{{ team.name }}</strong></li>
     <div class="list-group">
         {% for game in team.games %}
         {% if team == game.home_team %}

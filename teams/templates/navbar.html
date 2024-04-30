@@ -15,6 +15,9 @@
                 </li>
             </ul>
         </div>
+        {% if user.username %}
+            Welcome {{ user.username }}
+        {% endif %}
     </div>
 </nav>
 {% if messages %}
