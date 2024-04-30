@@ -16,7 +16,7 @@ class Game(models.Model):
     season = models.ForeignKey(Season, on_delete=models.CASCADE)
     home_team = models.ForeignKey(Team, null=True, on_delete=models.SET_NULL, related_name="home_games")
     away_team = models.ForeignKey(Team, null=True, on_delete=models.SET_NULL, related_name="away_games")
-    location = models.CharField()  # stadium name
+    location = models.CharField(max_length=30)  # stadium name
     kickoff = models.DateTimeField(null=True)  # split into date and time?
 
     def __str__(self):
