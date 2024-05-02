@@ -38,3 +38,4 @@ README.md
 .coverage
 .coveragerc
 local_postgres.yml
+**/.envs/*
