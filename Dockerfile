@@ -47,7 +47,7 @@ RUN poetry install --without dev
 # Copy the source code into the container.
 COPY . .
 
-# Change the ownership of the entrypoint.sh file to the appeaser user
+# Change the ownership of the entrypoint.sh file to the appuser user
 RUN chown appuser:appuser /app/entrypoint.sh
 # Set the execute permission for the entrypoint.sh file
 RUN chmod +x /app/entrypoint.sh
