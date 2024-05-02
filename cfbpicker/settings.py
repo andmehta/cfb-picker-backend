@@ -12,6 +12,19 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 
+
+# helper functions for determining boolean env variables. Sometimes different run environments can cause issues,
+#  but this pretty much solves that
+def default_false(env_var: str):
+    """Default to False and see if an environment variable toggles something on"""
+    return os.getenv(env_var, False) in (True, "true", "True", 1, "1")
+
+
+def default_truth(env_var: str):
+    """Default to True and see if an environment variable toggles something off"""
+    return os.getenv(env_var, True) in (False, "false", "False", 0, "0")
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -22,7 +35,7 @@ BASE_DIR = Path(__file__).resolve().parent
 SECRET_KEY = "django-insecure-&6(t3hb1q&9#b8fu-t*xtgsa$q30+*#)-xhi-rs$d8ft7!o50r"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = default_false("DEBUG")
 
 ALLOWED_HOSTS = []
 
@@ -71,10 +84,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "cfbpicker.wsgi.application"
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-if os.getenv("IS_CI", False) in (True, "true", "True", 1, "1"):
+
+# Database is either expected to "be there" for local dev and production, but CI needs to instantiate one
+#  This if statement boots up a Postgres container while loading settings, meant to be in a CI env like Github Actions
+if default_false("IS_CI"):
     # import locally as it's not guaranteed to be part of the dependencies
+    #  only in dev-dependencies
     from testcontainers.postgres import PostgresContainer
 
     postgres_container = PostgresContainer()
@@ -113,7 +128,6 @@ else:
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
