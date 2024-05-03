@@ -47,7 +47,8 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = default_false("DEBUG")
 
-ALLOWED_HOSTS = []
+# eventually will need to add the actual URL
+ALLOWED_HOSTS = ["localhost", '127.0.0.1']
 
 # Application definition
 
