@@ -1,9 +1,5 @@
 services:
   api:
-    depends_on:
-      postgres:
-        condition: service_healthy
-    restart: on-failure
     build: .
     secrets:
       - db-password
@@ -13,6 +9,10 @@ services:
     env_file:
       - .envs/fake-production.env
     entrypoint: /app/entrypoint.sh
+    restart: on-failure
+    depends_on:
+      postgres:
+        condition: service_healthy
     develop:
       watch:
         - action: sync

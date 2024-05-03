@@ -5,15 +5,15 @@ Django Backend for attempting to pick the entire SEC football schedule before th
 
 ## How to Run
 1. [Clone this repo](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
-2. Add your own database password file `db/password.txt` and type in some password. The contents don't *actually* matter, the point is that the password is never part of the VCS
+2. Add your own database password file `db/prod-db-password.txt` and type in some password. The contents don't *actually* matter, the point is that the password is never part of the VCS
 3. Add a file `db/django-secret-key.txt`. Recommend [creating one here](https://djecrety.ir)
-4. finally add a directory and a file `.envs/fake-production.env` and fill with values needed
+4. Finally, add a directory and a file `.envs/fake-production.env` and fill with values needed
 5. [Install docker and docker compose](https://www.docker.com/products/docker-desktop/?) if you haven't already
-6. use docker compose to boot up the installation on your local machine
+6. Use docker compose to boot up the installation on your local machine
 ```shell
 docker compose up 
 ```
-5. access the site at https://localhost:8000/
+7. Access the site at https://localhost:8000/
 
 ## Set up a Development environment
 1. Do steps 1-5 for [How to Run](#how-to-run)
@@ -25,7 +25,8 @@ docker compose up
 - [x] Sign-in
 - [x] clean up of UI (use bootstrap and base html)
 - [x] CI/CD unit tests
-- [ ] Auto-deployment
+- [ ] ~~Auto-deployment~~  no auto after some reading. But setting up terraform and GCP
 - [ ] Game Results saved and shown in Games Screen
 - [ ] API and JWT token
+- [ ] investigate [fly.io](https://fly.io/docs/django/getting-started/existing/) for hosting cost savings
 - [ ] Integrate against [cfbpicker](https://github.com/andmehta/cfbpicker) react app
