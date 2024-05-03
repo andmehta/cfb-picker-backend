@@ -7,15 +7,11 @@ services:
     build: .
     secrets:
       - db-password
+      - django-secret-key
     ports:
       - "8000:8000"
-    environment:
-      DB_USER: postgres
-      DB_PASS_FILE: /run/secrets/db-password
-      DB_HOST: postgres
-      DB_PORT: 5432
-      DEBUG: False
-      SECRET_KEY: fake-secret-key-real-key-in-secrets-manager
+    env_file:
+      - .envs/fake-production.env
     entrypoint: /app/entrypoint.sh
     develop:
       watch:
@@ -43,7 +39,10 @@ services:
      retries: 5
 volumes:
  db-data:
-   name: db-data-local-env
+   name: fake-prod-cfb-picker-db-data
 secrets:
  db-password:
-   file: db/password.txt
+   file: db/prod-db-password.txt
+ django-secret-key:
+   file: db/django-secret-key.txt
+
