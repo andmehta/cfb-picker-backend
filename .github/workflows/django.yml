@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IS_CI: true
-      SECRET_KEY: fake-secret-key-for-CI-CD
     strategy:
       max-parallel: 4
       matrix:

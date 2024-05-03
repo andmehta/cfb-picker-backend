@@ -10,17 +10,20 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
+from functools import cache
 from pathlib import Path
 
 
 # helper functions for determining boolean env variables. Sometimes different run environments can cause issues,
 #  but this pretty much solves that
+@cache
 def default_false(env_var: str):
     """Default to False and see if an environment variable toggles something on"""
     return os.getenv(env_var, False) in (True, "true", "True", 1, "1")
 
 
-def default_truth(env_var: str):
+@cache
+def default_true(env_var: str):
     """Default to True and see if an environment variable toggles something off"""
     return os.getenv(env_var, True) in (False, "false", "False", 0, "0")
 
@@ -32,8 +35,13 @@ BASE_DIR = Path(__file__).resolve().parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("SECRET_KEY")
-if not SECRET_KEY:
+if default_false("IS_CI"):
+    # in CI/CD environment, secret key isn't that important
+    SECRET_KEY = "django-insecure-&6(t3hb1q&9#b8fu-t*xtgsa$q30+*#)-xhi-rs$d8ft7!o50r"
+elif SECRET_KEY_FILE := os.getenv("SECRET_KEY_FILE"):
+    with open(SECRET_KEY_FILE, "r") as secret_key_file:
+        SECRET_KEY = secret_key_file.read()
+else:
     raise EnvironmentError("SECRET_KEY needs to be set in the environment variables")
 
 # SECURITY WARNING: don't run with debug turned on in production!
