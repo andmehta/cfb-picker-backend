@@ -31,7 +31,7 @@ RUN adduser \
     appuser
 
 # Create a directory and set its permissions to allow writing by the appuser
-RUN mkdir app/output && chmod 777 app/output
+RUN mkdir /app/output && chmod 777 /app/output
 
 # first install poetry in the docker container
 RUN pip3 install poetry
@@ -47,7 +47,7 @@ RUN poetry install --without dev
 # Copy the source code into the container.
 COPY . .
 
-# Change the ownership of the entrypoint.sh file to the appeaser user
+# Change the ownership of the entrypoint.sh file to the appuser user
 RUN chown appuser:appuser /app/entrypoint.sh
 # Set the execute permission for the entrypoint.sh file
 RUN chmod +x /app/entrypoint.sh

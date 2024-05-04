@@ -12,6 +12,7 @@ Django = "^5.0.4"
 djangorestframework = "^3.15.1"
 psycopg = "^3.1.18"
 psycopg-binary = "^3.1.18"
+dj-database-url = "^2.1.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.4.0"

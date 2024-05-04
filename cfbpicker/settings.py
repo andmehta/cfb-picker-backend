@@ -10,7 +10,24 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
+from functools import cache
 from pathlib import Path
+import dj_database_url
+
+
+# helper functions for determining boolean env variables. Sometimes different run environments can cause issues,
+#  but this pretty much solves that
+@cache
+def default_false(env_var: str):
+    """Default to False and see if an environment variable toggles something on"""
+    return os.getenv(env_var, False) in (True, "true", "True", 1, "1")
+
+
+@cache
+def default_true(env_var: str):
+    """Default to True and see if an environment variable toggles something off"""
+    return os.getenv(env_var, True) in (False, "false", "False", 0, "0")
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent
@@ -19,12 +36,20 @@ BASE_DIR = Path(__file__).resolve().parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-&6(t3hb1q&9#b8fu-t*xtgsa$q30+*#)-xhi-rs$d8ft7!o50r"
+if default_false("IS_CI"):
+    # in CI/CD environment, secret key isn't that important
+    SECRET_KEY = "django-insecure-&6(t3hb1q&9#b8fu-t*xtgsa$q30+*#)-xhi-rs$d8ft7!o50r"
+elif SECRET_KEY_FILE := os.getenv("SECRET_KEY_FILE", "db/django-secret-key.txt"):
+    with open(SECRET_KEY_FILE, "r") as secret_key_file:
+        SECRET_KEY = secret_key_file.read()
+else:
+    raise EnvironmentError("SECRET_KEY needs to be set in the environment variables")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = default_false("DEBUG")
 
-ALLOWED_HOSTS = []
+# eventually will need to add the actual URL
+ALLOWED_HOSTS = ["localhost", '127.0.0.1']
 
 # Application definition
 
@@ -71,49 +96,32 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "cfbpicker.wsgi.application"
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-if os.getenv("IS_CI", False) in (True, "true", "True", 1, "1"):
+# Database is either expected to "be there" for local dev and production, but CI needs to instantiate one
+#  This if statement boots up a Postgres container while loading settings, meant to be in a CI env like Github Actions
+if default_false("IS_CI"):
     # import locally as it's not guaranteed to be part of the dependencies
+    #  only in dev-dependencies
     from testcontainers.postgres import PostgresContainer
 
     postgres_container = PostgresContainer()
     postgres_container.start()
-
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': postgres_container.dbname,
-            'USER': postgres_container.username,
-            'PASSWORD': postgres_container.password,
-            'HOST': postgres_container.get_container_host_ip(),
-            'PORT': postgres_container.get_exposed_port(postgres_container.port),
-        }
+        'default': dj_database_url.config(
+            default=f"postgres://{postgres_container.username}:{postgres_container.password}@{postgres_container.get_container_host_ip()}:{postgres_container.get_exposed_port(postgres_container.port)}/{postgres_container.dbname}")
     }
 else:
-    # These defaults are for the local test environment. Production is expected to override most of these
-    DB_USER = os.getenv("DB_USER", "postgres")
+    # these defaults are for the local env, production will change all of these
     DB_PASS_FILE = os.getenv("DB_PASS_FILE", "db/password.txt")
-    DB_HOST = os.getenv("DB_HOST", "localhost")
-    DB_PORT = os.getenv("DB_PORT", 5432)
-    if DB_USER is None or DB_PASS_FILE is None or DB_HOST is None or DB_PORT is None:
-        raise EnvironmentError("Database information was not properly supplied")
     with open(DB_PASS_FILE) as pass_file:
         password = pass_file.read()
+    # format is postgres://USER:PASSWORD@HOST:PORT/NAME
+    db_url = os.getenv("DATABASE_URL", "postgres://postgres:%s@localhost:5432/cfbpicker") % password
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'cfbpicker',
-            'USER': DB_USER,
-            'PASSWORD': password,
-            'HOST': DB_HOST,  # Service name of the PostgreSQL container in Docker Compose
-            'PORT': DB_PORT,
-        }
+        "default": dj_database_url.config(default=db_url)
     }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
